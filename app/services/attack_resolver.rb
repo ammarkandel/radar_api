@@ -68,7 +68,7 @@ class AttackResolver
     strategies.select(&:filter?).each { |f| positions = f.call(positions) }
 
     selectors = strategies.select(&:selector?)
-    selectors = [AttackModes::ClosestFirst.new] if selectors.empty?
+    selectors = [ AttackModes::ClosestFirst.new ] if selectors.empty?
     selectors.each { |s| positions = s.call(positions) }
 
     positions

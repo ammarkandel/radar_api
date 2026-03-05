@@ -30,7 +30,7 @@ class RadarDataNormalizer
 
   def extract_targets(entry)
     targets = entry[:targets]
-    targets = [targets] if targets.is_a?(Hash)
+    targets = [ targets ] if targets.is_a?(Hash)
     targets = [] unless targets.is_a?(Array)
 
     targets.map do |t|

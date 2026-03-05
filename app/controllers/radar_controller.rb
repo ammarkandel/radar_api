@@ -21,8 +21,8 @@ class RadarController < ApplicationController
     params.permit(
       { "attack-mode": [] },
       radar: [
-        { position: [:x, :y] },
-        { targets: [:type, :damage, :number] }
+        { position: [ :x, :y ] },
+        { targets: [ :type, :damage, :number ] }
       ]
     )
   end

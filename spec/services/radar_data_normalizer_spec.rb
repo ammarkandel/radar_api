@@ -6,13 +6,13 @@ RSpec.describe RadarDataNormalizer do
   describe "#call" do
     it "normalizes standard radar data" do
       raw = [
-        { position: { x: 10, y: 20 }, targets: [{ type: "T1", damage: 30 }] }
+        { position: { x: 10, y: 20 }, targets: [ { type: "T1", damage: 30 } ] }
       ]
 
       result = described_class.new(raw).call
 
       expect(result).to eq([
-        { position: { x: 10, y: 20 }, targets: [{ type: "T1", damage: 30 }] }
+        { position: { x: 10, y: 20 }, targets: [ { type: "T1", damage: 30 } ] }
       ])
     end
 
@@ -30,7 +30,7 @@ RSpec.describe RadarDataNormalizer do
 
     it "handles missing damage values (defaults to 0)" do
       raw = [
-        { position: { x: 0, y: 10 }, targets: [{ type: "Human" }] }
+        { position: { x: 0, y: 10 }, targets: [ { type: "Human" } ] }
       ]
 
       result = described_class.new(raw).call

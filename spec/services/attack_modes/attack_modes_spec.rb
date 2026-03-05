@@ -56,9 +56,9 @@ end
 RSpec.describe AttackModes::AvoidCrossfire do
   let(:positions) do
     [
-      { position: { x: 0, y: 20 }, targets: [{ type: "T7-T", damage: 30 }, { type: "Human", damage: 0 }] },
-      { position: { x: 0, y: 80 }, targets: [{ type: "HK-Tank", damage: 20 }] },
-      { position: { x: 0, y: 70 }, targets: [{ type: "T-X", damage: 20 }] }
+      { position: { x: 0, y: 20 }, targets: [ { type: "T7-T", damage: 30 }, { type: "Human", damage: 0 } ] },
+      { position: { x: 0, y: 80 }, targets: [ { type: "HK-Tank", damage: 20 } ] },
+      { position: { x: 0, y: 70 }, targets: [ { type: "T-X", damage: 20 } ] }
     ]
   end
 
@@ -66,12 +66,12 @@ RSpec.describe AttackModes::AvoidCrossfire do
     it "removes positions containing Human targets" do
       result = subject.call(positions)
       expect(result.length).to eq(2)
-      expect(result.map { |p| p[:position][:y] }).to eq([80, 70])
+      expect(result.map { |p| p[:position][:y] }).to eq([ 80, 70 ])
     end
 
     it "returns all positions when no humans present" do
       no_humans = [
-        { position: { x: 0, y: 10 }, targets: [{ type: "T1", damage: 30 }] }
+        { position: { x: 0, y: 10 }, targets: [ { type: "T1", damage: 30 } ] }
       ]
       result = subject.call(no_humans)
       expect(result.length).to eq(1)
@@ -86,8 +86,8 @@ end
 RSpec.describe AttackModes::PriorizeTx do
   let(:positions) do
     [
-      { position: { x: 0, y: 20 }, targets: [{ type: "T7-T", damage: 30 }] },
-      { position: { x: 0, y: 90 }, targets: [{ type: "T-X", damage: 20 }, { type: "T7-T", damage: 30 }] }
+      { position: { x: 0, y: 20 }, targets: [ { type: "T7-T", damage: 30 } ] },
+      { position: { x: 0, y: 90 }, targets: [ { type: "T-X", damage: 20 }, { type: "T7-T", damage: 30 } ] }
     ]
   end
 
@@ -100,8 +100,8 @@ RSpec.describe AttackModes::PriorizeTx do
 
     it "returns all positions when none have T-X" do
       no_tx = [
-        { position: { x: 0, y: 20 }, targets: [{ type: "T7-T", damage: 30 }] },
-        { position: { x: 0, y: 40 }, targets: [{ type: "HK-Tank", damage: 20 }] }
+        { position: { x: 0, y: 20 }, targets: [ { type: "T7-T", damage: 30 } ] },
+        { position: { x: 0, y: 40 }, targets: [ { type: "HK-Tank", damage: 20 } ] }
       ]
       result = subject.call(no_tx)
       expect(result.length).to eq(2)
@@ -116,7 +116,7 @@ RSpec.describe AttackModes::PriorizeTx do
         { type: "HK-Bomber", damage: 80 }
       ]
       result = subject.sort_targets(targets)
-      expect(result.map { |t| t[:type] }).to eq(["T-X", "T7-T", "HK-Bomber"])
+      expect(result.map { |t| t[:type] }).to eq([ "T-X", "T7-T", "HK-Bomber" ])
     end
   end
 

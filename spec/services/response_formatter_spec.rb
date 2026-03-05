@@ -22,7 +22,7 @@ RSpec.describe ResponseFormatter do
 
     it "sorts targets by damage descending by default" do
       result = described_class.new(position).call
-      expect(result[:targets]).to eq(["T-X", "T1"])
+      expect(result[:targets]).to eq([ "T-X", "T1" ])
     end
 
     it "includes the position coordinates" do
@@ -44,8 +44,8 @@ RSpec.describe ResponseFormatter do
 
       it "lists T-X targets first, then others by damage desc" do
         strategy = AttackModes::PriorizeTx.new
-        result = described_class.new(position_with_multiple, [strategy]).call
-        expect(result[:targets]).to eq(["T-X", "HK-Bomber", "T7-T"])
+        result = described_class.new(position_with_multiple, [ strategy ]).call
+        expect(result[:targets]).to eq([ "T-X", "HK-Bomber", "T7-T" ])
       end
     end
   end

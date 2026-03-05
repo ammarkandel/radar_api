@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Radar attack endpoint
-  post '/radar', to: 'radar#attack'
+  post "/radar", to: "radar#attack"
 
   # Defines the root path route ("/")
   # root "posts#index"
