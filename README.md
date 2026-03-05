@@ -21,6 +21,13 @@ bundle exec rspec --format documentation
 # Integration test script (requires server running on port 3000)
 rails server &
 bash test_attack.sh
+
+# Code style linting
+bundle exec rubocop
+
+# Security scanning
+bin/brakeman --no-pager
+bin/bundler-audit
 ```
 
 ## API Documentation
