@@ -15,7 +15,7 @@ rails server
 ## Running Tests
 
 ```bash
-# RSpec unit + integration tests (48 specs)
+# RSpec unit + integration tests (50 specs)
 bundle exec rspec --format documentation
 
 # Integration test script (requires server running on port 3000)

@@ -57,5 +57,25 @@ RSpec.describe RadarDataNormalizer do
 
       expect(result.first[:position]).to eq({ x: 3, y: 10 })
     end
+
+    it "keeps decimal coordinates instead of truncating them" do
+      raw = [
+        { position: { x: 1.5, y: "2.75" }, targets: [] }
+      ]
+
+      result = described_class.new(raw).call
+
+      expect(result.first[:position]).to eq({ x: 1.5, y: 2.75 })
+    end
+
+    it "falls back to 0 for coordinates that are not numbers" do
+      raw = [
+        { position: { x: "abc", y: nil }, targets: [] }
+      ]
+
+      result = described_class.new(raw).call
+
+      expect(result.first[:position]).to eq({ x: 0, y: 0 })
+    end
   end
 end

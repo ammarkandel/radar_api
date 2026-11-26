@@ -8,7 +8,7 @@ module AttackModes
 
     def call(positions)
       positions.reject do |pos|
-        pos[:targets].any? { |t| t[:type] == "Human" }
+        pos[:targets].any? { |target| target[:type] == "Human" }
       end
     end
   end

@@ -8,18 +8,21 @@ module AttackModes
 
     def call(positions)
       with_tx = positions.select do |pos|
-        pos[:targets].any? { |t| t[:type] == "T-X" }
+        pos[:targets].any? { |target| target[:type] == "T-X" }
       end
 
       with_tx.any? ? with_tx : positions
     end
 
     def sort_targets(targets)
-      tx_targets    = targets.select { |t| t[:type] == "T-X" }
-                             .sort_by { |t| -(t[:damage]) }
-      other_targets = targets.reject { |t| t[:type] == "T-X" }
-                             .sort_by { |t| -(t[:damage]) }
-      tx_targets + other_targets
+      tx_targets, other_targets = targets.partition { |target| target[:type] == "T-X" }
+      by_damage(tx_targets) + by_damage(other_targets)
+    end
+
+    private
+
+    def by_damage(targets)
+      targets.sort_by { |target| -target[:damage] }
     end
   end
 end
