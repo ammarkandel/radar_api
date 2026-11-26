@@ -14,7 +14,7 @@ RSpec.describe AttackModes::ClosestFirst do
   describe "#call" do
     it "sorts positions by ascending distance from origin" do
       result = subject.call(positions)
-      expect(result.map { |p| p[:position] }).to eq([
+      expect(result.map { |scan| scan[:position] }).to eq([
         { x: 3, y: 10 },  # √109 ≈ 10.44
         { x: 0, y: 40 },  # 40
         { x: 0, y: 60 }   # 60
@@ -66,7 +66,7 @@ RSpec.describe AttackModes::AvoidCrossfire do
     it "removes positions containing Human targets" do
       result = subject.call(positions)
       expect(result.length).to eq(2)
-      expect(result.map { |p| p[:position][:y] }).to eq([ 80, 70 ])
+      expect(result.map { |scan| scan[:position][:y] }).to eq([ 80, 70 ])
     end
 
     it "returns all positions when no humans present" do
@@ -116,7 +116,7 @@ RSpec.describe AttackModes::PriorizeTx do
         { type: "HK-Bomber", damage: 80 }
       ]
       result = subject.sort_targets(targets)
-      expect(result.map { |t| t[:type] }).to eq([ "T-X", "T7-T", "HK-Bomber" ])
+      expect(result.map { |target| target[:type] }).to eq([ "T-X", "T7-T", "HK-Bomber" ])
     end
   end
 

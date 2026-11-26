@@ -2,7 +2,7 @@
 
 ## Problem Analysis
 
-The challenge is to build an HTTP endpoint that selects the best attack position from radar scan data,
+The goal is to build an HTTP endpoint that selects the best attack position from radar scan data,
 based on configurable and chainable attack modes. Key requirements:
 
 1. **Multiple attack modes** that can be combined
@@ -61,13 +61,13 @@ app/
 
 spec/
 ├── requests/
-│   └── radar_spec.rb                   # 8 integration tests
+│   └── radar_spec.rb                   # 17 integration tests
 └── services/
-    ├── attack_resolver_spec.rb          # 7 unit tests
-    ├── radar_data_normalizer_spec.rb    # 5 unit tests
+    ├── attack_resolver_spec.rb          # 10 unit tests
+    ├── radar_data_normalizer_spec.rb    # 7 unit tests
     ├── response_formatter_spec.rb       # 4 unit tests
     └── attack_modes/
-        └── attack_modes_spec.rb         # 13 unit tests
+        └── attack_modes_spec.rb         # 12 unit tests
 ```
 
 ## How to Add a New Attack Mode

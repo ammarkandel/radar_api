@@ -65,11 +65,11 @@ class AttackResolver
   end
 
   def apply_strategies(strategies, positions)
-    strategies.select(&:filter?).each { |f| positions = f.call(positions) }
+    strategies.select(&:filter?).each { |filter_mode| positions = filter_mode.call(positions) }
 
     selectors = strategies.select(&:selector?)
     selectors = [ AttackModes::ClosestFirst.new ] if selectors.empty?
-    selectors.each { |s| positions = s.call(positions) }
+    selectors.each { |selector| positions = selector.call(positions) }
 
     positions
   end

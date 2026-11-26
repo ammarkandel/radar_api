@@ -12,14 +12,14 @@ class ResponseFormatter
 
     {
       position: @position[:position],
-      targets: targets.map { |t| t[:type] }
+      targets: targets.map { |target| target[:type] }
     }
   end
 
   private
 
   def strip_humans(targets)
-    targets.reject { |t| t[:type] == "Human" }
+    targets.reject { |target| target[:type] == "Human" }
   end
 
   def apply_target_sorting(targets)
@@ -28,8 +28,8 @@ class ResponseFormatter
       sorted = strategy.sort_targets(sorted) if strategy.respond_to?(:sort_targets)
     end
 
-    if @strategies.none? { |s| s.respond_to?(:sort_targets) }
-      sorted = sorted.sort_by { |t| -(t[:damage]) }
+    if @strategies.none? { |strategy| strategy.respond_to?(:sort_targets) }
+      sorted = sorted.sort_by { |target| -target[:damage] }
     end
 
     sorted

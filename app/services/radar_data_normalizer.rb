@@ -23,9 +23,18 @@ class RadarDataNormalizer
 
   def extract_position(entry)
     {
-      x: entry.dig(:position, :x).to_i,
-      y: entry.dig(:position, :y).to_i
+      x: coordinate(entry.dig(:position, :x)),
+      y: coordinate(entry.dig(:position, :y))
     }
+  end
+
+  # Keeps whole numbers as integers (so responses stay `{ "x": 0, "y": 40 }`)
+  # but no longer truncates decimals, which used to change distance ranking.
+  def coordinate(value)
+    number = Float(value, exception: false)
+    return 0 unless number&.finite?
+
+    number == number.to_i ? number.to_i : number
   end
 
   def extract_targets(entry)
@@ -33,10 +42,10 @@ class RadarDataNormalizer
     targets = [ targets ] if targets.is_a?(Hash)
     targets = [] unless targets.is_a?(Array)
 
-    targets.map do |t|
-      t = t.to_unsafe_h if t.respond_to?(:to_unsafe_h)
-      t = t.deep_symbolize_keys if t.respond_to?(:deep_symbolize_keys)
-      { type: t[:type].to_s, damage: t[:damage].to_i }
+    targets.map do |target|
+      target = target.to_unsafe_h if target.respond_to?(:to_unsafe_h)
+      target = target.deep_symbolize_keys if target.respond_to?(:deep_symbolize_keys)
+      { type: target[:type].to_s, damage: target[:damage].to_i }
     end
   end
 end
